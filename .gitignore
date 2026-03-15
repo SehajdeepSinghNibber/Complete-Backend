@@ -1,0 +1,23 @@
+# Ignore all node_modules folders anywhere
+node_modules/
+**/node_modules/
+
+# Ignore all package-lock.json files anywhere
+package-lock.json
+**/package-lock.json
+
+# Ignore all .env files anywhere
+.env
+**/.env
+
+# Optional: ignore env variations
+.env.*
+**/.env.*
+
+# Optional: ignore logs
+logs/
+*.log
+
+# Optional: ignore build folders
+dist/
+build/

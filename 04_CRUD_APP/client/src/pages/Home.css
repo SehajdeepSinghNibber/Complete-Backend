@@ -1,0 +1,62 @@
+.home{
+    text-align:center;
+    padding:40px;
+  }
+  
+  .hero{
+    max-width:700px;
+    margin:auto;
+  }
+  
+  .hero h1{
+    font-size:40px;
+    margin-bottom:10px;
+  }
+  
+  .hero p{
+    font-size:18px;
+    color:#555;
+    margin-bottom:25px;
+  }
+  
+  .home-buttons{
+    display:flex;
+    justify-content:center;
+    gap:20px;
+  }
+  
+  .home-buttons button{
+    padding:12px 28px;
+    font-size:16px;
+    font-weight:600;
+    border:none;
+    border-radius:8px;
+    cursor:pointer;
+    background:green;
+    color:white;
+    transition:all 0.25s ease;
+    box-shadow:0 4px 10px rgba(0,0,0,0.15);
+  }
+  
+  .home-buttons button:hover{
+    box-shadow:0 8px 18px rgba(0,0,0,0.25);
+  }
+
+  .home-buttons button:active{
+    transform:translateY(0);
+    box-shadow:0 3px 8px rgba(0,0,0,0.2);
+  }
+  
+  .gallery{
+    margin-top:40px;
+    display:flex;
+    justify-content:center;
+    gap:20px;
+  }
+  
+  .gallery img{
+    width:250px;
+    height:200px;
+    object-fit:cover;
+    border-radius:10px;
+  }

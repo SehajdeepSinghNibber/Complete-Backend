@@ -46,7 +46,7 @@ app.get("/posts",async (req,res)=>{
     })
 
 })
-
+    
 app.delete("/posts/:id", async (req, res) => {
 
     await postModel.findByIdAndDelete(req.params.id);

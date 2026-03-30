@@ -1,60 +1,75 @@
 import express from "express";
 import dotenv from "dotenv";
-import multer from "multer"
 import cors from "cors";
-import uploadFile from "../services/storage.service.js";
-import postModel from "../src/models/post.model.js"
+import todoModel from "../src/models/todo.model.js";
 
 dotenv.config();
 
 const app = express();
 
-const upload = multer({storage:multer.memoryStorage()})
-
 app.use(express.json());
+app.use(cors());
 
-app.use(cors())
+app.post("/todos", async (req, res) => {
+  try {
+    const { text } = req.body;
 
-app.post('/create-post', upload.single("Image"), async (req,res)=>{
-    
-    console.log(req.body);
-    console.log(req.file);
-
-    const result = await uploadFile(req.file.buffer);
-
-    console.log(result);
-
-    const post = await postModel.create({
-        Post:result.url,
-        Caption:req.body.Title
-    })
-
-    return res.status(201).json({
-        message:"Post Created Successfully",
-        post
-    })
-
-})
-
-app.get("/posts",async (req,res)=>{
-
-    const posts = await postModel.find()
-
-    return res.status(200).json({
-        message:"Post Fetched Successfully",
-        posts
-    })
-
-})
-    
-app.delete("/posts/:id", async (req, res) => {
-
-    await postModel.findByIdAndDelete(req.params.id);
-  
-    return res.status(200).json({
-      message: "Post deleted successfully"
+    const todo = await todoModel.create({
+      text,
+      completed: false
     });
-  
-  });
+
+    res.status(201).json({
+      message: "Todo created successfully",
+      todo
+    });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
+app.get("/todos", async (req, res) => {
+  try {
+    const todos = await todoModel.find();
+
+    res.status(200).json({
+      message: "Todos fetched successfully",
+      todos
+    });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
+app.put("/todos/:id", async (req, res) => {
+  try {
+    const { text, completed } = req.body;
+
+    const updatedTodo = await todoModel.findByIdAndUpdate(
+      req.params.id,
+      { text, completed },
+      { new: true }
+    );
+
+    res.status(200).json({
+      message: "Todo updated successfully",
+      updatedTodo
+    });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
+app.delete("/todos/:id", async (req, res) => {
+  try {
+    await todoModel.findByIdAndDelete(req.params.id);
+
+    res.status(200).json({
+      message: "Todo deleted successfully"
+    });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
 
 export default app;
